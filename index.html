@@ -1,0 +1,449 @@
+<![CDATA[<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lina Capital — Plateforme d'investissement participatif</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Raleway:wght@400;600;700;800&family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --login-navy: #1B2A4A;
+  --login-cyan: #00B4D8;
+  --login-cyan-dark: #009bb8;
+  --login-bg: #f9f9f9;
+  --login-font-heading: 'Raleway', sans-serif;
+  --login-font-body: 'Libre Franklin', sans-serif;
+  --sidebar-bg: #061d39;
+  --accent: #2dd4bf;
+  --accent-hover: #1cb18b;
+  --accent-secondary: #47d3b0;
+  --page-bg: #f8fafc;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --filter-bg: #f1f5f9;
+  --input-bg: #f2f2f2;
+  --text-primary: #1e293b;
+  --text-heading: #0f172a;
+  --text-secondary: #64748b;
+  --text-tertiary: #94a3b8;
+  --success: #0d9488;
+  --danger: #cc0000;
+  --danger-alt: #ef4444;
+  --warning-bg: #fff7da;
+  --badge-nouveau: #ffbc48;
+  --badge-fin: #dc6a3a;
+  --gradient-kpi: linear-gradient(138deg, #123259 0%, #061d39 100%);
+  --font-app: 'Inter', sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+#screen-login { display: flex; min-height: 100vh; font-family: var(--login-font-body); }
+.login-left { width: 45%; min-height: 100vh; background: var(--login-bg); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 80px; }
+.login-form-wrapper { width: 100%; max-width: 420px; }
+.login-logo { margin-bottom: 50px; display: flex; align-items: center; gap: 12px; }
+.login-logo-text { font-family: var(--login-font-heading); font-weight: 800; font-size: 28px; color: var(--login-navy); letter-spacing: -0.5px; }
+.login-logo-sub { font-family: var(--login-font-heading); font-weight: 700; font-size: 10px; color: var(--login-navy); letter-spacing: 2.5px; text-transform: uppercase; opacity: 0.5; margin-top: 2px; }
+.login-logo-icon { width: 44px; height: 44px; background: var(--login-cyan); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+.login-form-wrapper h1 { font-family: var(--login-font-heading); font-size: 28px; font-weight: 800; color: var(--login-navy); margin-bottom: 8px; }
+.login-subtitle { font-size: 15px; color: #666; margin-bottom: 35px; }
+.login-subtitle a { color: var(--login-cyan); text-decoration: none; font-weight: 600; cursor: pointer; }
+.login-subtitle a:hover { text-decoration: underline; }
+.social-buttons { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+.btn-social { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 20px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; border: none; font-family: var(--login-font-body); }
+.btn-google { background: var(--login-cyan); color: #fff; }
+.btn-google:hover { background: var(--login-cyan-dark); }
+.btn-apple { background: #fff; color: var(--login-navy); border: 1px solid #ddd; }
+.btn-apple:hover { background: #f0f0f0; }
+.btn-social svg { width: 20px; height: 20px; }
+.login-separator { display: flex; align-items: center; gap: 15px; margin-bottom: 30px; }
+.login-separator::before, .login-separator::after { content: ''; flex: 1; height: 1px; background: #ddd; }
+.login-separator span { font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+.login-field { margin-bottom: 20px; position: relative; }
+.login-field input { width: 100%; padding: 16px 0; font-size: 15px; font-family: var(--login-font-body); color: var(--login-navy); background: transparent; border: none; border-bottom: 1px solid #ddd; outline: none; transition: border-color 0.3s; }
+.login-field input::placeholder { color: #aaa; }
+.login-field input:focus { border-bottom-color: var(--login-cyan); }
+.login-field .toggle-password { position: absolute; right: 0; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #aaa; padding: 5px; }
+.btn-login { width: 100%; padding: 16px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; font-family: var(--login-font-body); cursor: pointer; transition: all 0.3s; margin-top: 10px; background: linear-gradient(135deg, var(--login-cyan), var(--login-cyan-dark)); color: #fff; }
+.btn-login:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(0,180,216,0.3); }
+.login-forgot { text-align: center; margin-top: 20px; }
+.login-forgot a { font-size: 14px; color: var(--login-cyan); text-decoration: none; font-weight: 500; cursor: pointer; }
+.login-right { width: 55%; min-height: 100vh; background: var(--login-navy); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px; position: relative; overflow: hidden; }
+.login-right::before { content: ''; position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: rgba(0,180,216,0.08); border-radius: 50%; }
+.login-right::after { content: ''; position: absolute; bottom: -80px; left: -80px; width: 300px; height: 300px; background: rgba(0,180,216,0.05); border-radius: 50%; }
+.login-showcase { position: relative; z-index: 1; text-align: center; max-width: 550px; }
+.login-showcase h2 { font-family: var(--login-font-heading); font-size: 36px; font-weight: 800; color: #fff; margin-bottom: 15px; line-height: 1.3; }
+.login-showcase p { font-size: 16px; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 40px; }
+.login-badges { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+.login-badge { text-align: center; }
+.login-badge-icon { width: 36px; height: 36px; margin: 0 auto 8px; color: var(--login-cyan); }
+.login-badge span { display: block; font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.4; }
+.amf-review-badge { background: rgba(239,68,68,0.2); border: 2px solid rgba(239,68,68,0.5); border-radius: 8px; padding: 6px; }
+#screen-onboarding { display: none; min-height: 100vh; font-family: var(--font-app); background: var(--page-bg); }
+.onb-header { background: #fff; border-bottom: 1px solid var(--card-border); padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; }
+.onb-logo { font-family: var(--font-app); font-weight: 800; font-size: 22px; color: var(--sidebar-bg); display: flex; align-items: center; gap: 8px; }
+.onb-logo-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
+.onb-quit { font-size: 14px; color: var(--text-secondary); cursor: pointer; font-family: var(--font-app); background: none; border: none; padding: 8px 16px; border-radius: 8px; transition: all 0.2s; }
+.onb-quit:hover { background: var(--filter-bg); color: var(--text-primary); }
+.onb-progress { background: #fff; padding: 24px 40px 28px; border-bottom: 1px solid var(--card-border); }
+.onb-steps { display: flex; gap: 8px; margin-bottom: 16px; }
+.onb-step-dot { flex: 1; height: 6px; border-radius: 100px; background: var(--card-border); transition: all 0.4s; }
+.onb-step-dot.completed { background: var(--accent); }
+.onb-step-dot.active { background: var(--accent); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+.onb-step-labels { display: flex; justify-content: space-between; }
+.onb-step-label { font-size: 11px; color: var(--text-tertiary); font-weight: 500; text-align: center; flex: 1; transition: all 0.3s; }
+.onb-step-label.active { color: var(--accent); font-weight: 700; }
+.onb-step-label.completed { color: var(--success); }
+.onb-content { max-width: 640px; margin: 0 auto; padding: 40px 20px; }
+.onb-step { display: none; }
+.onb-step.active { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+.onb-step-icon { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px; }
+.onb-step h2 { font-size: 24px; font-weight: 700; color: var(--text-heading); margin-bottom: 8px; }
+.onb-step .onb-desc { font-size: 15px; color: var(--text-secondary); margin-bottom: 32px; line-height: 1.6; }
+.onb-form-group { margin-bottom: 20px; }
+.onb-form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
+.onb-form-group input, .onb-form-group select { width: 100%; padding: 14px 16px; border: 1px solid var(--card-border); border-radius: 10px; font-size: 15px; font-family: var(--font-app); color: var(--text-primary); background: #fff; outline: none; transition: border-color 0.2s; }
+.onb-form-group input:focus, .onb-form-group select:focus { border-color: var(--accent); }
+.onb-form-group input::placeholder { color: var(--text-tertiary); }
+.onb-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.onb-checkbox { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: #fff; border: 1px solid var(--card-border); border-radius: 10px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s; }
+.onb-checkbox:hover { border-color: var(--accent); }
+.onb-checkbox input[type="checkbox"] { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--accent); flex-shrink: 0; }
+.onb-checkbox .cb-text { font-size: 13px; color: var(--text-primary); line-height: 1.5; }
+.onb-checkbox .cb-text strong { font-weight: 600; }
+.onb-upload { border: 2px dashed var(--card-border); border-radius: 12px; padding: 32px; text-align: center; cursor: pointer; transition: all 0.2s; margin-bottom: 16px; background: #fff; }
+.onb-upload:hover { border-color: var(--accent); background: #f0fdfa; }
+.onb-upload-icon { font-size: 32px; margin-bottom: 8px; }
+.onb-upload-text { font-size: 14px; color: var(--text-secondary); }
+.onb-upload-text strong { color: var(--accent); font-weight: 600; }
+.onb-question { background: #fff; border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+.onb-question-label { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px; }
+.onb-radio-group { display: flex; flex-direction: column; gap: 8px; }
+.onb-radio { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+.onb-radio:hover { background: var(--filter-bg); }
+.onb-radio input[type="radio"] { accent-color: var(--accent); width: 18px; height: 18px; }
+.onb-radio span { font-size: 14px; color: var(--text-primary); }
+.onb-result-card { background: linear-gradient(138deg, #123259, #061d39); border-radius: 16px; padding: 32px; text-align: center; color: #fff; margin-bottom: 24px; }
+.onb-result-icon { font-size: 48px; margin-bottom: 16px; }
+.onb-result-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.onb-result-badge { display: inline-block; background: var(--accent); color: var(--sidebar-bg); padding: 6px 20px; border-radius: 20px; font-size: 14px; font-weight: 700; margin-bottom: 16px; }
+.onb-result-card p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+.onb-recap { background: #fff; border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; margin-bottom: 24px; }
+.onb-recap-header { padding: 16px 20px; background: var(--filter-bg); font-size: 14px; font-weight: 700; color: var(--text-primary); border-bottom: 1px solid var(--card-border); }
+.onb-recap-row { display: flex; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid #f1f5f9; font-size: 14px; }
+.onb-recap-row:last-child { border-bottom: none; }
+.onb-recap-label { color: var(--text-secondary); }
+.onb-recap-value { font-weight: 600; color: var(--text-primary); }
+.onb-recap-value.success { color: var(--success); }
+.onb-doc-sign { display: flex; align-items: center; justify-content: space-between; background: #fff; border: 1px solid var(--card-border); border-radius: 10px; padding: 16px 20px; margin-bottom: 12px; }
+.onb-doc-sign-left { display: flex; align-items: center; gap: 12px; }
+.onb-doc-sign-icon { width: 40px; height: 40px; background: var(--filter-bg); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.onb-doc-sign-name { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+.onb-doc-sign-size { font-size: 12px; color: var(--text-tertiary); }
+.onb-doc-sign-status { font-size: 12px; font-weight: 600; padding: 4px 14px; border-radius: 20px; }
+.onb-doc-sign-status.signed { background: #d1fae5; color: var(--success); }
+.onb-warning { background: var(--warning-bg); border-radius: 10px; padding: 16px 20px; display: flex; align-items: flex-start; gap: 12px; margin-bottom: 24px; }
+.onb-warning-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.onb-warning-text { font-size: 13px; color: var(--text-primary); line-height: 1.6; }
+.onb-simulation { background: #fff0f0; border: 1px solid #fecaca; border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 24px; }
+.onb-simulation-amount { font-size: 36px; font-weight: 800; color: var(--danger-alt); margin: 12px 0 8px; }
+.onb-simulation p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+.onb-actions { display: flex; gap: 12px; margin-top: 32px; }
+.onb-btn { padding: 16px 32px; border-radius: 10px; font-size: 16px; font-weight: 600; font-family: var(--font-app); cursor: pointer; transition: all 0.2s; border: none; }
+.onb-btn-primary { background: var(--accent); color: var(--sidebar-bg); flex: 1; }
+.onb-btn-primary:hover { background: var(--accent-hover); }
+.onb-btn-secondary { background: var(--filter-bg); color: var(--text-primary); }
+.onb-btn-secondary:hover { background: var(--card-border); }
+#screen-app { display: none; font-family: var(--font-app); background: var(--page-bg); color: var(--text-primary); min-height: 100vh; }
+.sidebar { width: 280px; min-height: 100vh; background: var(--sidebar-bg); display: flex; flex-direction: column; position: fixed; left: 0; top: 0; bottom: 0; z-index: 10; }
+.sidebar-logo { padding: 28px 24px 32px; }
+.sidebar-logo svg { width: 113px; height: 38px; }
+.sidebar-nav { flex: 1; display: flex; flex-direction: column; gap: 2px; padding: 0 12px; }
+.sidebar-item { display: flex; align-items: center; gap: 14px; padding: 13px 16px; border-radius: 8px; color: #dbdbdb; font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.2s; text-decoration: none; height: 50.5px; border-left: 3px solid transparent; }
+.sidebar-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
+.sidebar-item.active { background: rgba(255,255,255,0.15); border-left-color: var(--accent-secondary); color: #fff; }
+.sidebar-item .icon { width: 24px; height: 24px; opacity: 0.7; flex-shrink: 0; }
+.sidebar-item.active .icon { opacity: 1; }
+.sidebar-cta { margin: 16px; padding: 18px 20px; background: linear-gradient(135deg, var(--accent-secondary), var(--accent-hover)); border-radius: 12px; color: #fff; font-size: 14px; font-weight: 600; text-align: center; cursor: pointer; }
+.sidebar-cta span { display: block; font-size: 12px; font-weight: 400; opacity: 0.85; margin-top: 4px; }
+.main { margin-left: 280px; flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
+.header { height: 110px; background: #fff; border-bottom: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; flex-shrink: 0; }
+.header-left h1 { font-size: 24px; font-weight: 700; color: var(--text-heading); }
+.header-left p { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+.header-right { display: flex; align-items: center; gap: 16px; }
+.btn-filter { display: flex; align-items: center; gap: 8px; padding: 10px 20px; border: 1px solid var(--card-border); border-radius: 10px; background: #fff; font-size: 14px; font-weight: 500; color: var(--text-primary); cursor: pointer; font-family: var(--font-app); }
+.avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #45d1ae, #1db18c); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; font-weight: 700; }
+.user-info { display: flex; align-items: center; gap: 10px; }
+.user-info .name { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+.nav-tabs { display: flex; gap: 12px; padding: 20px 40px; background: #fff; }
+.nav-tab { display: flex; align-items: center; gap: 12px; padding: 14px 22px; border-radius: 12px; background: var(--input-bg); cursor: pointer; transition: all 0.2s; flex: 1; }
+.nav-tab .tab-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--card-border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.nav-tab .tab-text .tab-title { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+.nav-tab .tab-text .tab-sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+.nav-tab.active { background: var(--accent); }
+.nav-tab.active .tab-icon { background: rgba(255,255,255,0.25); }
+.nav-tab.active .tab-text .tab-title { color: #fff; }
+.nav-tab.active .tab-text .tab-sub { color: rgba(255,255,255,0.8); }
+.content { padding: 30px 40px 0; flex: 1; }
+.app-screen { display: none; }
+.app-screen.active { display: block; }
+.kpi-section { background: var(--gradient-kpi); border-radius: 16px; padding: 30px 32px; margin-bottom: 28px; position: relative; overflow: hidden; }
+.kpi-section::after { content: ''; position: absolute; bottom: -30px; right: -30px; width: 180px; height: 180px; background: rgba(255,255,255,0.05); border-radius: 64px; transform: rotate(15deg); }
+.kpi-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+.kpi-header h2 { font-size: 18px; font-weight: 700; color: #fff; }
+.badge-shariah { display: inline-flex; align-items: center; gap: 6px; background: var(--accent); color: var(--sidebar-bg); font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 20px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; position: relative; z-index: 1; }
+.kpi-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(5px); border-radius: 12px; padding: 20px; }
+.kpi-card .kpi-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; font-size: 18px; }
+.kpi-card .kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.7); margin-bottom: 6px; }
+.kpi-card .kpi-value { font-size: 28px; font-weight: 700; color: #fff; }
+.kpi-card .kpi-value.accent { color: var(--accent); }
+.kpi-card .kpi-sub { font-size: 12px; color: var(--accent-secondary); margin-top: 4px; font-weight: 500; }
+.kpi-card .kpi-sub.neutral { color: rgba(255,255,255,0.5); }
+.avertissement { background: var(--warning-bg); border-radius: 12px; padding: 16px 22px; margin-top: 16px; display: flex; align-items: center; gap: 14px; position: relative; z-index: 1; }
+.avertissement .warn-icon { width: 38px; height: 38px; background: #ffe0ab; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.avertissement .warn-text { font-size: 13px; color: var(--text-primary); line-height: 1.5; }
+.avertissement .warn-text strong { font-weight: 700; }
+.section-title { font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 20px; }
+.filters-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.filter-pills { display: flex; gap: 8px; background: var(--filter-bg); padding: 6px; border-radius: 10px; }
+.filter-pill { padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--text-secondary); cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.3px; }
+.filter-pill:hover { color: var(--text-primary); }
+.filter-pill.active { background: #fff; color: var(--success); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.search-bar { flex: 1; position: relative; margin-left: 16px; }
+.search-bar input { width: 100%; padding: 10px 16px 10px 40px; border: 1px solid var(--card-border); border-radius: 10px; font-size: 14px; color: var(--text-primary); background: #fff; font-family: var(--font-app); outline: none; }
+.search-bar input::placeholder { color: var(--text-tertiary); }
+.search-bar .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); }
+.projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 30px; }
+.project-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; overflow: hidden; transition: all 0.2s; cursor: pointer; }
+.project-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+.project-img-wrap { position: relative; }
+.project-img-wrap img { width: 100%; height: 180px; object-fit: cover; display: block; }
+.project-badges { position: absolute; top: 12px; left: 12px; display: flex; gap: 6px; }
+.badge { padding: 5px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; color: #fff; }
+.badge-halal { background: var(--accent-secondary); }
+.badge-nouveau { background: var(--badge-nouveau); }
+.badge-fin-proche { background: var(--badge-fin); }
+.badge-finance { background: var(--success); }
+.project-body { padding: 20px 22px 22px; }
+.project-sector { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-secondary); margin-bottom: 6px; }
+.project-name { font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+.project-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 16px; }
+.project-raise { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px; }
+.project-raise span { color: var(--text-secondary); font-weight: 400; }
+.progress-bar { height: 10px; background: var(--card-border); border-radius: 100px; overflow: hidden; margin-bottom: 16px; }
+.progress-fill { height: 100%; background: var(--accent); border-radius: 100px; transition: width 0.6s ease; }
+.project-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.metric { text-align: center; }
+.metric-value { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+.metric-label { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
+.content-fiche { padding: 30px 40px 30px; flex: 1; display: none; gap: 28px; align-items: flex-start; }
+.content-fiche.active { display: flex; }
+.col-fiche { flex: 6; min-width: 0; }
+.col-invest { flex: 4; position: sticky; top: 20px; }
+.fiche-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; overflow: hidden; }
+.fiche-img-wrap { position: relative; }
+.fiche-img-wrap img { width: 100%; height: 240px; object-fit: cover; display: block; }
+.fiche-badges { position: absolute; top: 14px; left: 14px; display: flex; gap: 8px; }
+.fiche-body { padding: 24px 28px; }
+.fiche-name { font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+.fiche-sub { font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; }
+.fiche-tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.fiche-tab { padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; background: #dbdbdb; color: var(--text-secondary); }
+.fiche-tab.active { background: var(--accent); color: var(--sidebar-bg); }
+.fiche-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+.fiche-kpi { text-align: center; padding: 14px; background: var(--page-bg); border-radius: 10px; }
+.fiche-kpi-value { font-size: 22px; font-weight: 800; color: var(--text-primary); }
+.fiche-kpi-label { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+.fiche-section { margin-bottom: 28px; }
+.fiche-section-title { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; }
+.fiche-section p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+.funds-list { display: flex; flex-direction: column; gap: 12px; }
+.fund-bar-wrap { flex: 1; }
+.fund-label { display: flex; justify-content: space-between; margin-bottom: 6px; }
+.fund-label span:first-child { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+.fund-label span:last-child { font-size: 14px; font-weight: 700; color: var(--accent); }
+.fund-bar { height: 8px; background: var(--card-border); border-radius: 100px; overflow: hidden; }
+.fund-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-hover)); border-radius: 100px; }
+.fund-desc { font-size: 12px; color: var(--text-tertiary); margin-top: 4px; }
+.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.team-card { background: var(--card-border); border-radius: 10px; padding: 16px; text-align: center; }
+.team-avatar { width: 48px; height: 48px; background: linear-gradient(135deg, #45d1ae, #1db18c); border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 16px; }
+.team-name { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+.team-role { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+.doc-list { display: flex; flex-direction: column; gap: 10px; }
+.doc-item { display: flex; align-items: center; justify-content: space-between; background: var(--input-bg); border-radius: 10px; padding: 14px 18px; }
+.doc-info { display: flex; align-items: center; gap: 12px; }
+.doc-icon { width: 36px; height: 36px; background: var(--card-border); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.doc-name { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+.doc-size { font-size: 12px; color: var(--text-tertiary); }
+.doc-download { font-size: 13px; font-weight: 600; color: var(--success); cursor: pointer; text-decoration: none; }
+.invest-panel { background: linear-gradient(97deg, #123259, #061d39); border-radius: 16px; padding: 28px; color: #fff; }
+.invest-kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 22px; }
+.invest-kpi { background: rgba(255,255,255,0.1); backdrop-filter: blur(5px); border-radius: 12px; padding: 16px; text-align: center; }
+.invest-kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
+.invest-kpi-value { font-size: 24px; font-weight: 700; }
+.raise-section { margin-bottom: 22px; }
+.raise-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+.raise-amount { font-size: 18px; font-weight: 700; }
+.raise-target { font-size: 14px; color: rgba(255,255,255,0.6); }
+.raise-bar { height: 10px; background: var(--card-border); border-radius: 100px; overflow: hidden; margin-bottom: 14px; }
+.raise-bar-fill { height: 100%; background: var(--accent); border-radius: 100px; }
+.raise-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.raise-metric { text-align: center; }
+.raise-metric-value { font-size: 18px; font-weight: 700; }
+.raise-metric-label { font-size: 10px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.3px; }
+.invest-form { background: #fff; border-radius: 12px; padding: 24px; color: var(--text-primary); margin-bottom: 18px; }
+.invest-form-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+.amount-input { display: flex; border-radius: 10px; overflow: hidden; margin-bottom: 14px; border: 1px solid var(--card-border); }
+.amount-input input { flex: 1; padding: 14px 16px; border: none; font-size: 20px; font-weight: 700; background: var(--input-bg); font-family: var(--font-app); color: var(--text-primary); outline: none; }
+.amount-input .currency { padding: 14px 20px; background: var(--sidebar-bg); color: #fff; font-size: 14px; font-weight: 600; display: flex; align-items: center; }
+.quick-amounts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 18px; }
+.quick-btn { padding: 8px; border: 1px solid var(--text-tertiary); border-radius: 5px; background: #fff; font-size: 13px; font-weight: 600; color: var(--text-primary); cursor: pointer; text-align: center; transition: all 0.2s; font-family: var(--font-app); }
+.quick-btn:hover, .quick-btn.active { border-color: var(--accent); color: var(--accent); }
+.calc-line { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; }
+.calc-line .calc-label { color: var(--text-secondary); }
+.calc-line .calc-val { font-weight: 600; }
+.calc-separator { height: 1px; background: var(--card-border); margin: 8px 0; }
+.calc-total { display: flex; justify-content: space-between; padding: 8px 0; font-size: 16px; font-weight: 700; }
+.btn-invest { width: 100%; padding: 18px; background: var(--accent); color: var(--sidebar-bg); font-size: 20px; font-weight: 700; border: none; border-radius: 10px; cursor: pointer; font-family: var(--font-app); transition: all 0.2s; margin-top: 14px; }
+.btn-invest:hover { background: var(--accent-hover); }
+.invest-warning { background: var(--warning-bg); border-radius: 10px; padding: 14px 18px; display: flex; align-items: flex-start; gap: 10px; }
+.invest-warning .warn-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.invest-warning .warn-text { font-size: 12px; color: var(--text-primary); line-height: 1.5; }
+.invest-warning .warn-text strong { font-weight: 700; }
+.participations-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 30px; }
+.part-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; overflow: hidden; transition: all 0.2s; }
+.part-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+.part-img-wrap { position: relative; }
+.part-img-wrap img { width: 100%; height: 160px; object-fit: cover; display: block; }
+.part-img-wrap .badge { position: absolute; top: 12px; left: 12px; }
+.part-body { padding: 20px 22px; }
+.part-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+.part-name { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+.part-value { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+.part-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.part-sector { font-size: 14px; color: var(--text-secondary); }
+.part-perf { font-size: 14px; font-weight: 500; }
+.part-perf.positive { color: var(--success); }
+.part-perf.negative { color: var(--danger-alt); }
+.part-separator { height: 1px; background: var(--card-border); margin-bottom: 16px; }
+.part-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+.part-stat { text-align: center; }
+.part-stat-label { font-size: 13px; color: var(--text-tertiary); margin-bottom: 4px; }
+.part-stat-value { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+.part-actions { display: flex; gap: 12px; }
+.btn-vendre { flex: 1; padding: 10px 0; background: var(--accent); color: var(--sidebar-bg); font-size: 14px; font-weight: 700; border: none; border-radius: 6px; cursor: pointer; text-align: center; font-family: var(--font-app); }
+.btn-vendre:hover { background: var(--accent-hover); }
+.btn-actualites { flex: 1; padding: 10px 0; background: var(--card-border); color: var(--sidebar-bg); font-size: 14px; font-weight: 500; border: none; border-radius: 6px; cursor: pointer; text-align: center; font-family: var(--font-app); }
+.carnet-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 32px; }
+.carnet-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; overflow: hidden; }
+.carnet-header { padding: 16px 22px; font-size: 18px; font-weight: 700; }
+.carnet-header.achat { background: #d1fae5; color: #065f46; }
+.carnet-header.vente { background: #f7e2e1; color: #991b1b; }
+.carnet-table { width: 100%; border-collapse: collapse; }
+.carnet-table th { text-align: left; padding: 12px 22px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-tertiary); border-bottom: 1px solid var(--card-border); }
+.carnet-table th:last-child { text-align: right; }
+.carnet-table td { padding: 14px 22px; font-size: 14px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+.carnet-table td:last-child { text-align: right; }
+.carnet-table tr:last-child td { border-bottom: none; }
+.entreprise-cell { display: flex; align-items: center; gap: 10px; }
+.entreprise-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.entreprise-icon.medical { background: #def5f8; }
+.entreprise-icon.plant { background: #d1fae5; }
+.entreprise-name { font-weight: 600; }
+.prix-cell { font-weight: 600; }
+.btn-action { padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; border: none; cursor: pointer; font-family: var(--font-app); transition: all 0.15s; }
+.btn-action.sell { background: #fbd6d6; color: var(--danger); }
+.btn-action.buy { background: #d1fae5; color: #028478; }
+.btn-action.cancel { background: #fbd6d6; color: var(--danger); }
+.history-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; overflow: hidden; margin-bottom: 30px; }
+.history-header { padding: 16px 22px; background: linear-gradient(90deg, #f0fdfa, var(--page-bg)); border-bottom: 1px solid var(--card-border); }
+.history-header h3 { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+.history-table { width: 100%; border-collapse: collapse; }
+.history-table th { text-align: left; padding: 12px 18px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-tertiary); border-bottom: 1px solid var(--card-border); }
+.history-table td { padding: 14px 18px; font-size: 14px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+.history-table tr:last-child td { border-bottom: none; }
+.type-badge { font-size: 13px; font-weight: 600; }
+.type-badge.vente { color: var(--danger); }
+.type-badge.achat { color: #028478; }
+.order-ref { font-size: 12px; color: var(--text-tertiary); display: block; margin-top: 2px; }
+.status-badge { display: inline-flex; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.status-badge.en-cours { background: #d1fae5; color: var(--success); }
+.status-badge.en-attente { background: #f8f2d3; color: #f59e0b; }
+.status-badge.execute { background: #f6e1fd; color: #840d94; }
+.trust-footer { border-top: 1px solid var(--card-border); height: 70px; display: flex; align-items: center; justify-content: center; gap: 40px; margin-top: auto; padding: 0 40px; flex-shrink: 0; background: #fff; }
+.trust-item { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-secondary); }
+</style>
+</head>
+<body>
+<div id="screen-login">
+<div class="login-left"><div class="login-form-wrapper">
+<div class="login-logo"><div class="login-logo-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 5 5-9"/></svg></div><div><div class="login-logo-text">Lina Capital</div><div class="login-logo-sub">Private Equity</div></div></div>
+<h1>Se connecter</h1>
+<p class="login-subtitle">Vous n'avez pas de compte ? <a onclick="showOnboarding()">S'inscrire ›</a></p>
+<div class="social-buttons"><a href="#" class="btn-social btn-google" onclick="event.preventDefault(); showApp()"><svg viewBox="0 0 24 24" fill="#fff"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/></svg>Continuer avec Google</a><a href="#" class="btn-social btn-apple" onclick="event.preventDefault(); showApp()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>Continuer avec Apple</a></div>
+<div class="login-separator"><span>ou se connecter par email</span></div>
+<form onsubmit="event.preventDefault(); showApp()"><div class="login-field"><input type="email" placeholder="Votre email" value="lea.dupont@email.com"></div><div class="login-field"><input type="password" id="login-password" placeholder="Mot de passe" value="••••••••••"><button type="button" class="toggle-password" onclick="togglePassword()"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div><button type="submit" class="btn-login">Se connecter</button></form>
+<div class="login-forgot"><a href="#">Mot de passe oublié ?</a></div>
+</div></div>
+<div class="login-right"><div class="login-showcase">
+<h2>Investissez dans l'économie réelle</h2>
+<p>Gérez vos investissements, suivez vos performances et découvrez de nouvelles opportunités conformes à vos valeurs.</p>
+<div class="login-badges"><div class="login-badge"><svg class="login-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Données<br>sécurisées</span></div><div class="login-badge amf-review-badge"><svg class="login-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span>Agrément AMF<br>en cours</span></div><div class="login-badge"><svg class="login-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>TPE & PME<br>françaises</span></div><div class="login-badge"><svg class="login-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><span>Disponible sur<br>App et Web</span></div></div>
+</div></div>
+</div>
+
+<div id="screen-onboarding">
+<div class="onb-header"><div class="onb-logo">LINA<span class="onb-logo-dot"></span></div><button class="onb-quit" onclick="showLogin()">✕ Quitter</button></div>
+<div class="onb-progress"><div class="onb-steps"><div class="onb-step-dot active" data-step="1"></div><div class="onb-step-dot" data-step="2"></div><div class="onb-step-dot" data-step="3"></div><div class="onb-step-dot" data-step="4"></div><div class="onb-step-dot" data-step="5"></div><div class="onb-step-dot" data-step="6"></div></div><div class="onb-step-labels"><span class="onb-step-label active" data-step="1">Compte</span><span class="onb-step-label" data-step="2">Profil</span><span class="onb-step-label" data-step="3">Identité</span><span class="onb-step-label" data-step="4">Adéquation</span><span class="onb-step-label" data-step="5">Catégorie</span><span class="onb-step-label" data-step="6">Signature</span></div></div>
+<div class="onb-content">
+<div class="onb-step active" data-step="1"><div class="onb-step-icon" style="background:#d1fae5;">📧</div><h2>Créez votre compte</h2><p class="onb-desc">Commencez par créer votre espace investisseur sécurisé sur Lina Capital.</p><div class="onb-form-group"><label>Adresse email</label><input type="email" placeholder="votre@email.com" value="lea.dupont@email.com"></div><div class="onb-form-row"><div class="onb-form-group"><label>Mot de passe</label><input type="password" placeholder="Min. 12 caractères" value="••••••••••••"></div><div class="onb-form-group"><label>Confirmer</label><input type="password" placeholder="Confirmation" value="••••••••••••"></div></div><div class="onb-form-group"><label>Type de compte</label><select><option>Personne physique</option><option>Personne morale</option></select></div><div style="margin-top:24px"><div class="onb-checkbox"><input type="checkbox" checked><div class="cb-text"><strong>J'accepte les CGU</strong> — J'ai lu et j'accepte les Conditions Générales d'Utilisation</div></div><div class="onb-checkbox"><input type="checkbox" checked><div class="cb-text"><strong>Politique de confidentialité</strong> — J'ai lu et j'accepte la Politique de confidentialité</div></div><div class="onb-checkbox"><input type="checkbox" checked><div class="cb-text"><strong>Avertissement risques</strong> — Je reconnais que l'investissement en financement participatif comporte un risque de perte totale ou partielle du capital, sans garantie de rendement ni couverture par un fonds de garantie.</div></div></div><div class="onb-actions"><button class="onb-btn onb-btn-primary" onclick="onbNext()">Créer mon compte →</button></div></div>
+
+<div class="onb-step" data-step="2"><div class="onb-step-icon" style="background:#e0e7ff;">👤</div><h2>Votre profil investisseur</h2><p class="onb-desc">Nous avons besoin de quelques informations pour constituer votre dossier.</p><div class="onb-form-row"><div class="onb-form-group"><label>Civilité</label><select><option>Mme</option><option>M.</option></select></div><div class="onb-form-group"><label>Date de naissance</label><input type="text" value="15/03/1988" placeholder="JJ/MM/AAAA"></div></div><div class="onb-form-row"><div class="onb-form-group"><label>Nom</label><input type="text" value="Dupont"></div><div class="onb-form-group"><label>Prénom</label><input type="text" value="Lea"></div></div><div class="onb-form-group"><label>Nationalité</label><select><option>Française</option></select></div><div class="onb-form-group"><label>Adresse postale</label><input type="text" value="24 rue de la Paix, 75002 Paris"></div><div class="onb-form-row"><div class="onb-form-group"><label>Téléphone</label><input type="tel" value="+33 6 12 34 56 78"></div><div class="onb-form-group"><label>Situation professionnelle</label><select><option>Salariée</option><option>Indépendant</option><option>Chef d'entreprise</option></select></div></div><div class="onb-actions"><button class="onb-btn onb-btn-secondary" onclick="onbPrev()">← Retour</button><button class="onb-btn onb-btn-primary" onclick="onbNext()">Continuer →</button></div></div>
+
+<div class="onb-step" data-step="3"><div class="onb-step-icon" style="background:#fef3c7;">🔐</div><h2>Vérification d'identité</h2><p class="onb-desc">Conformément à la réglementation LCB-FT, nous devons vérifier votre identité avant de vous donner accès aux investissements.</p><div class="onb-form-group"><label>Pièce d'identité (recto / verso)</label><div class="onb-upload" onclick="this.innerHTML='<div class=\'onb-upload-icon\'>✅</div><div class=\'onb-upload-text\'><strong>CNI_Lea_Dupont.pdf</strong> — Téléversé</div>'; this.style.borderColor='var(--accent)'; this.style.background='#f0fdfa'"><div class="onb-upload-icon">📎</div><div class="onb-upload-text"><strong>Cliquez pour téléverser</strong> ou glissez-déposez<br>JPG, PNG ou PDF — 10 Mo max</div></div></div><div class="onb-form-group"><label>Justificatif de domicile (&lt; 3 mois)</label><div class="onb-upload" onclick="this.innerHTML='<div class=\'onb-upload-icon\'>✅</div><div class=\'onb-upload-text\'><strong>Facture_EDF_2026.pdf</strong> — Téléversé</div>'; this.style.borderColor='var(--accent)'; this.style.background='#f0fdfa'"><div class="onb-upload-icon">📎</div><div class="onb-upload-text"><strong>Cliquez pour téléverser</strong> ou glissez-déposez<br>Facture énergie, avis d'imposition, attestation assurance</div></div></div><div class="onb-warning"><span class="onb-warning-icon">🔒</span><div class="onb-warning-text">Vos documents sont chiffrés (AES-256) et conservés conformément à la réglementation LCB-FT. Délai de traitement : 48h ouvrées.</div></div><div class="onb-actions"><button class="onb-btn onb-btn-secondary" onclick="onbPrev()">← Retour</button><button class="onb-btn onb-btn-primary" onclick="onbNext()">Envoyer mes documents →</button></div></div>
+
+<div class="onb-step" data-step="4"><div class="onb-step-icon" style="background:#ede9fe;">📋</div><h2>Test d'adéquation</h2><p class="onb-desc">Ce questionnaire obligatoire (Art. 21 du Règlement PSFP) évalue si les services de financement participatif sont adaptés à votre profil.</p><div class="onb-question"><div class="onb-question-label">Avez-vous déjà investi dans des instruments financiers ?</div><div class="onb-radio-group"><label class="onb-radio"><input type="radio" name="q1"><span>Jamais</span></label><label class="onb-radio"><input type="radio" name="q1"><span>1-3 fois</span></label><label class="onb-radio"><input type="radio" name="q1" checked><span>4-10 fois</span></label><label class="onb-radio"><input type="radio" name="q1"><span>Plus de 10 fois</span></label></div></div><div class="onb-question"><div class="onb-question-label">Comprenez-vous le risque de perte en capital ?</div><div class="onb-radio-group"><label class="onb-radio"><input type="radio" name="q2"><span>Je peux perdre une partie</span></label><label class="onb-radio"><input type="radio" name="q2" checked><span>Je peux perdre la totalité</span></label><label class="onb-radio"><input type="radio" name="q2"><span>Mon capital est garanti</span></label></div></div><div class="onb-question"><div class="onb-question-label">Valeur estimée de votre patrimoine net (hors résidence principale) ?</div><div class="onb-radio-group"><label class="onb-radio"><input type="radio" name="q3"><span>&lt; 10 000 €</span></label><label class="onb-radio"><input type="radio" name="q3"><span>10 000 – 50 000 €</span></label><label class="onb-radio"><input type="radio" name="q3" checked><span>50 000 – 150 000 €</span></label><label class="onb-radio"><input type="radio" name="q3"><span>&gt; 150 000 €</span></label></div></div><div class="onb-simulation"><div style="font-size:14px;font-weight:600;color:var(--text-primary)">Simulation de perte (Art. 21.6)</div><div class="onb-simulation-amount">15 000 €</div><p>Correspondant à 10% de votre patrimoine net déclaré. Vous devez être en mesure de supporter la perte totale de cette somme.</p></div><div class="onb-checkbox"><input type="checkbox" checked><div class="cb-text"><strong>Je confirme</strong> avoir pris connaissance de cette simulation et être en mesure de supporter financièrement la perte totale des montants que j'investirai.</div></div><div class="onb-actions"><button class="onb-btn onb-btn-secondary" onclick="onbPrev()">← Retour</button><button class="onb-btn onb-btn-primary" onclick="onbNext()">Valider le test →</button></div></div>
+
+<div class="onb-step" data-step="5"><div class="onb-step-icon" style="background:#d1fae5;">🏆</div><h2>Votre catégorisation</h2><p class="onb-desc">Sur la base de vos réponses, nous avons déterminé votre profil investisseur.</p><div class="onb-result-card"><div class="onb-result-icon">✅</div><h3>Test d'adéquation réussi</h3><div class="onb-result-badge">Investisseur non averti</div><p>Votre profil est compatible avec le financement participatif. En tant qu'investisseur non averti, vous bénéficierez d'avertissements renforcés et d'alertes automatiques pour les montants significatifs.</p></div><div class="onb-warning"><span class="onb-warning-icon">ℹ️</span><div class="onb-warning-text"><strong>Ce que cela signifie :</strong> un avertissement renforcé s'affichera sur chaque projet. Si vous investissez plus de 1 000 € ou plus de 5% de votre patrimoine, une confirmation supplémentaire sera requise.</div></div><div class="onb-actions"><button class="onb-btn onb-btn-secondary" onclick="onbPrev()">← Retour</button><button class="onb-btn onb-btn-primary" onclick="onbNext()">Continuer →</button></div></div>
+
+<div class="onb-step" data-step="6"><div class="onb-step-icon" style="background:#fce7f3;">✍️</div><h2>Validation et signature</h2><p class="onb-desc">Vérifiez vos informations et signez les documents contractuels pour activer votre compte.</p><div class="onb-recap"><div class="onb-recap-header">Récapitulatif de votre profil</div><div class="onb-recap-row"><span class="onb-recap-label">Identité</span><span class="onb-recap-value">Lea Dupont</span></div><div class="onb-recap-row"><span class="onb-recap-label">Date de naissance</span><span class="onb-recap-value">15/03/1988</span></div><div class="onb-recap-row"><span class="onb-recap-label">Email</span><span class="onb-recap-value">lea.dupont@email.com</span></div><div class="onb-recap-row"><span class="onb-recap-label">Statut KYC</span><span class="onb-recap-value success">✓ Vérifié</span></div><div class="onb-recap-row"><span class="onb-recap-label">Catégorie</span><span class="onb-recap-value">Investisseur non averti</span></div><div class="onb-recap-row"><span class="onb-recap-label">Test d'adéquation</span><span class="onb-recap-value success">✓ Adéquat — valide jusqu'au 28/03/2028</span></div></div><div style="margin-bottom:24px"><div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px;">Documents à signer</div><div class="onb-doc-sign"><div class="onb-doc-sign-left"><div class="onb-doc-sign-icon">📄</div><div><div class="onb-doc-sign-name">CGU Investisseur</div><div class="onb-doc-sign-size">PDF • 340 Ko</div></div></div><span class="onb-doc-sign-status signed">✓ Signé</span></div><div class="onb-doc-sign"><div class="onb-doc-sign-left"><div class="onb-doc-sign-icon">📄</div><div><div class="onb-doc-sign-name">Convention d'investissement</div><div class="onb-doc-sign-size">PDF • 520 Ko</div></div></div><span class="onb-doc-sign-status signed">✓ Signé</span></div><div class="onb-doc-sign"><div class="onb-doc-sign-left"><div class="onb-doc-sign-icon">📄</div><div><div class="onb-doc-sign-name">Attestation de risques</div><div class="onb-doc-sign-size">PDF • 210 Ko</div></div></div><span class="onb-doc-sign-status signed">✓ Signé</span></div></div><div class="onb-warning"><span class="onb-warning-icon">📜</span><div class="onb-warning-text">Les documents signés seront archivés pendant 10 ans conformément à la réglementation. Signature électronique via <strong>Xodo Sign</strong>.</div></div><div class="onb-actions"><button class="onb-btn onb-btn-secondary" onclick="onbPrev()">← Retour</button><button class="onb-btn onb-btn-primary" onclick="showApp()" style="background:linear-gradient(135deg, var(--accent), var(--accent-hover));">🎉 Accéder à la plateforme</button></div></div>
+</div></div>
+
+<div id="screen-app">
+<aside class="sidebar"><div class="sidebar-logo"><svg viewBox="0 0 113 38" fill="none"><text x="0" y="28" fill="#fff" font-family="Inter" font-weight="800" font-size="26">LINA</text><text x="72" y="28" fill="#2dd4bf" font-family="Inter" font-weight="800" font-size="8">●</text></svg></div><nav class="sidebar-nav"><a class="sidebar-item" href="#"><span class="icon">📊</span> Tableau de bord</a><a class="sidebar-item" href="#"><span class="icon">📈</span> Projets et stratégies</a><a class="sidebar-item" href="#"><span class="icon">💰</span> Investir</a><a class="sidebar-item" href="#"><span class="icon">☪️</span> CTO Actions Halal</a><a class="sidebar-item active" href="#" onclick="event.preventDefault(); switchAppTab(0)"><span class="icon">🏦</span> Financement participatif</a><a class="sidebar-item" href="#"><span class="icon">🕌</span> Ma Zakat</a><a class="sidebar-item" href="#"><span class="icon">🏠</span> Gestion de patrimoine</a><a class="sidebar-item" href="#"><span class="icon">📄</span> Mes documents</a></nav><div class="sidebar-cta">Besoin d'être conseillé ?<span>Prenez rendez-vous avec un expert</span></div></aside>
+<div class="main">
+<header class="header"><div class="header-left"><h1>Financement Participatif</h1><p>Investissez dans des entreprises prometteuses conformes à la finance islamique</p></div><div class="header-right"><button class="btn-filter"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h12M4 8h8M6 13h4"/></svg> Filtres</button><div class="user-info"><span class="name">Lea Dupont</span><div class="avatar">LD</div></div></div></header>
+<div class="nav-tabs"><div class="nav-tab active" onclick="switchAppTab(0)"><div class="tab-icon">📋</div><div class="tab-text"><div class="tab-title">Projets</div><div class="tab-sub">Découvrir les levées</div></div></div><div class="nav-tab" onclick="switchAppTab(1)"><div class="tab-icon">🏢</div><div class="tab-text"><div class="tab-title">Fiche entreprise</div><div class="tab-sub">Détails du projet</div></div></div><div class="nav-tab" onclick="switchAppTab(2)"><div class="tab-icon">💼</div><div class="tab-text"><div class="tab-title">Mon portefeuille</div><div class="tab-sub">Suivi participations</div></div></div><div class="nav-tab" onclick="switchAppTab(3)"><div class="tab-icon">📊</div><div class="tab-text"><div class="tab-title">Carnet d'ordres</div><div class="tab-sub">Achat / Vente</div></div></div></div>
+
+<div class="content app-screen active" data-tab="0"><section class="kpi-section"><div class="kpi-header"><h2>Statistiques principales</h2><span class="badge-shariah">✓ 100% Conforme Shariah</span></div><div class="kpi-grid"><div class="kpi-card"><div class="kpi-icon">📋</div><div class="kpi-label">Projets en cours</div><div class="kpi-value">12</div></div><div class="kpi-card"><div class="kpi-icon">💰</div><div class="kpi-label">Levés ce mois</div><div class="kpi-value accent">4,2 M€</div></div><div class="kpi-card"><div class="kpi-icon">👥</div><div class="kpi-label">Investisseurs actifs</div><div class="kpi-value">2 847</div></div><div class="kpi-card"><div class="kpi-icon">📈</div><div class="kpi-label">Taux de succès</div><div class="kpi-value accent">89%</div></div></div><div class="avertissement"><div class="warn-icon">💡</div><div class="warn-text"><strong>Investissement Participatif Halal</strong> — Les projets présentés sont sélectionnés selon des critères de conformité Shariah stricts. Investir comporte des risques de perte en capital.</div></div></section><div class="filters-bar"><div class="filter-pills"><div class="filter-pill active">Tous</div><div class="filter-pill">Tech</div><div class="filter-pill">Santé</div><div class="filter-pill">Alimentation</div><div class="filter-pill">Énergies</div></div><div class="search-bar"><span class="search-icon">🔍</span><input type="text" placeholder="Rechercher un projet"></div></div><div class="projects-grid"><div class="project-card" onclick="switchAppTab(1)"><div class="project-img-wrap"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=300&fit=crop" alt="MedCare AI"><div class="project-badges"><span class="badge badge-halal">☪ Halal</span><span class="badge badge-nouveau">Nouveau</span></div></div><div class="project-body"><div class="project-sector">HEALTHCARE</div><div class="project-name">MedCare AI</div><div class="project-desc">Solution d'intelligence artificielle pour le diagnostic médical assisté par ordinateur.</div><div class="project-raise">487 000 € <span>/ 600 000 €</span></div><div class="progress-bar"><div class="progress-fill" style="width:81%"></div></div><div class="project-metrics"><div class="metric"><div class="metric-value">81%</div><div class="metric-label">Financé</div></div><div class="metric"><div class="metric-value">234</div><div class="metric-label">Investisseurs</div></div><div class="metric"><div class="metric-value">18j</div><div class="metric-label">Restants</div></div></div></div></div><div class="project-card"><div class="project-img-wrap"><img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=300&fit=crop" alt="GreenFarm Bio"><div class="project-badges"><span class="badge badge-halal">☪ Halal</span><span class="badge badge-fin-proche">Fin proche</span></div></div><div class="project-body"><div class="project-sector">AGRITECH</div><div class="project-name">GreenFarm Bio</div><div class="project-desc">Agriculture biologique et circuits courts grâce à la technologie IoT et aux serres connectées.</div><div class="project-raise">342 500 € <span>/ 350 000 €</span></div><div class="progress-bar"><div class="progress-fill" style="width:98%"></div></div><div class="project-metrics"><div class="metric"><div class="metric-value">98%</div><div class="metric-label">Financé</div></div><div class="metric"><div class="metric-value">189</div><div class="metric-label">Investisseurs</div></div><div class="metric"><div class="metric-value">3j</div><div class="metric-label">Restants</div></div></div></div></div><div class="project-card"><div class="project-img-wrap"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=300&fit=crop" alt="LearnUp Academy"><div class="project-badges"><span class="badge badge-halal">☪ Halal</span><span class="badge badge-finance">Financé</span></div></div><div class="project-body"><div class="project-sector">EDTECH</div><div class="project-name">LearnUp Academy</div><div class="project-desc">Plateforme d'apprentissage en ligne dédiée à la formation professionnelle continue.</div><div class="project-raise">250 000 € <span>/ 250 000 €</span></div><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div><div class="project-metrics"><div class="metric"><div class="metric-value">100%</div><div class="metric-label">Financé</div></div><div class="metric"><div class="metric-value">234</div><div class="metric-label">Investisseurs</div></div><div class="metric"><div class="metric-value">—</div><div class="metric-label">Clôturé</div></div></div></div></div><div class="project-card"><div class="project-img-wrap"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=300&fit=crop" alt="HalalBox"><div class="project-badges"><span class="badge badge-halal">☪ Halal</span><span class="badge badge-nouveau">Nouveau</span></div></div><div class="project-body"><div class="project-sector">FOODTECH</div><div class="project-name">HalalBox</div><div class="project-desc">Box alimentaire halal premium livrée à domicile avec des produits frais et certifiés.</div><div class="project-raise">89 000 € <span>/ 300 000 €</span></div><div class="progress-bar"><div class="progress-fill" style="width:30%"></div></div><div class="project-metrics"><div class="metric"><div class="metric-value">30%</div><div class="metric-label">Financé</div></div><div class="metric"><div class="metric-value">67</div><div class="metric-label">Investisseurs</div></div><div class="metric"><div class="metric-value">42j</div><div class="metric-label">Restants</div></div></div></div></div></div></div>
+
+<div class="content-fiche app-screen" data-tab="1"><div class="col-fiche"><div class="fiche-card"><div class="fiche-img-wrap"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=400&fit=crop" alt="MedCare AI"><div class="fiche-badges"><span class="badge badge-halal">☪ Halal</span><span class="badge badge-nouveau">Nouveau</span></div></div><div class="fiche-body"><div class="fiche-name">MedCare AI</div><div class="fiche-sub">HealthTech • Paris, France • Créée en 2021</div><div class="fiche-tabs"><div class="fiche-tab active">Présentation</div><div class="fiche-tab">Business Plan</div><div class="fiche-tab">Équipe</div><div class="fiche-tab">Financier</div><div class="fiche-tab">Documents</div></div><div class="fiche-kpis"><div class="fiche-kpi"><div class="fiche-kpi-value">2,4 M€</div><div class="fiche-kpi-label">CA 2024</div></div><div class="fiche-kpi"><div class="fiche-kpi-value">+180 %</div><div class="fiche-kpi-label">Croissance</div></div><div class="fiche-kpi"><div class="fiche-kpi-value">15</div><div class="fiche-kpi-label">Hôpitaux partenaires</div></div></div><div class="fiche-section"><div class="fiche-section-title">🎯 Le projet</div><p>MedCare AI développe une solution d'intelligence artificielle révolutionnaire pour le diagnostic médical assisté. En partenariat avec 15 hôpitaux en France, l'algorithme analyse les données d'imagerie médicale pour détecter précocement les pathologies. L'objectif est d'étendre la solution à l'échelle européenne avec une certification CE et FDA.</p></div><div class="fiche-section"><div class="fiche-section-title">🎯 Utilisation des fonds</div><div class="funds-list"><div class="fund-bar-wrap"><div class="fund-label"><span>R&D</span><span>40%</span></div><div class="fund-bar"><div class="fund-bar-fill" style="width:40%"></div></div><div class="fund-desc">Algorithmes de diagnostic</div></div><div class="fund-bar-wrap"><div class="fund-label"><span>Expansion commerciale</span><span>35%</span></div><div class="fund-bar"><div class="fund-bar-fill" style="width:35%"></div></div><div class="fund-desc">Recrutement et partenariats</div></div><div class="fund-bar-wrap"><div class="fund-label"><span>Conformité réglementaire</span><span>15%</span></div><div class="fund-bar"><div class="fund-bar-fill" style="width:15%"></div></div><div class="fund-desc">Certifications CE et FDA</div></div><div class="fund-bar-wrap"><div class="fund-label"><span>Marketing</span><span>10%</span></div><div class="fund-bar"><div class="fund-bar-fill" style="width:10%"></div></div><div class="fund-desc">Notoriété et acquisition</div></div></div></div><div class="fiche-section"><div class="fiche-section-title">🎯 L'équipe</div><div class="team-grid"><div class="team-card"><div class="team-avatar">YA</div><div class="team-name">Dr. Yassine Amrani</div><div class="team-role">CEO</div></div><div class="team-card"><div class="team-avatar">SB</div><div class="team-name">Sarah Benali</div><div class="team-role">CTO</div></div><div class="team-card"><div class="team-avatar">KD</div><div class="team-name">Karim Dupont</div><div class="team-role">CFO</div></div></div></div><div class="fiche-section"><div class="fiche-section-title">🎯 Documents</div><div class="doc-list"><div class="doc-item"><div class="doc-info"><div class="doc-icon">📄</div><div><div class="doc-name">Business Plan 2024-2027</div><div class="doc-size">PDF • 2.4 MB</div></div></div><a class="doc-download" href="#">Télécharger →</a></div><div class="doc-item"><div class="doc-info"><div class="doc-icon">📄</div><div><div class="doc-name">Prévisionnel financier</div><div class="doc-size">PDF • 2.4 MB</div></div></div><a class="doc-download" href="#">Télécharger →</a></div><div class="doc-item"><div class="doc-info"><div class="doc-icon">📄</div><div><div class="doc-name">Certificat Shariah</div><div class="doc-size">PDF • 2.4 MB</div></div></div><a class="doc-download" href="#">Télécharger →</a></div></div></div></div></div></div><div class="col-invest"><div class="invest-panel"><div class="invest-kpis"><div class="invest-kpi"><div class="invest-kpi-label">Prix action</div><div class="invest-kpi-value">12,50 €</div></div><div class="invest-kpi"><div class="invest-kpi-label">Minimum</div><div class="invest-kpi-value">100 €</div></div></div><div class="raise-section"><div class="raise-header"><span class="raise-amount">487 000 €</span><span class="raise-target">/ 600 000 €</span></div><div class="raise-bar"><div class="raise-bar-fill" style="width:81%"></div></div><div class="raise-metrics"><div class="raise-metric"><div class="raise-metric-value">81%</div><div class="raise-metric-label">Financé</div></div><div class="raise-metric"><div class="raise-metric-value">234</div><div class="raise-metric-label">Investisseurs</div></div><div class="raise-metric"><div class="raise-metric-value">18j</div><div class="raise-metric-label">Restants</div></div></div></div><div class="invest-form"><div class="invest-form-title">Mon investissement</div><div class="amount-input"><input type="number" id="invest-amount" value="500" oninput="updateCalc()"><div class="currency">EUR</div></div><div class="quick-amounts"><div class="quick-btn" onclick="setAmount(100)">100 €</div><div class="quick-btn" onclick="setAmount(250)">250 €</div><div class="quick-btn active" onclick="setAmount(500)">500 €</div><div class="quick-btn" onclick="setAmount(1000)">1 000 €</div></div><div class="calc-line"><span class="calc-label">Prix / action</span><span class="calc-val">12,50 €</span></div><div class="calc-line"><span class="calc-label">Nb. actions</span><span class="calc-val" id="calc-actions">40</span></div><div class="calc-line"><span class="calc-label">Frais (2%)</span><span class="calc-val" id="calc-fees">10,00 €</span></div><div class="calc-separator"></div><div class="calc-total"><span>TOTAL</span><span id="calc-total">510,00 €</span></div><button class="btn-invest">Investir maintenant</button></div><div class="invest-warning"><span class="warn-icon">💡</span><div class="warn-text"><strong>Avertissement</strong> — Investir comporte des risques de perte en capital. Les performances passées ne préjugent pas des performances futures.</div></div></div></div></div>
+
+<div class="content app-screen" data-tab="2"><section class="kpi-section"><div class="kpi-header"><h2>Statistiques principales</h2></div><div class="kpi-grid"><div class="kpi-card"><div class="kpi-icon">💼</div><div class="kpi-label">Valeur totale</div><div class="kpi-value">8 742,50 €</div><div class="kpi-sub neutral">5 participations</div></div><div class="kpi-card"><div class="kpi-icon">📈</div><div class="kpi-label">Plus-value</div><div class="kpi-value accent">+1 245,00 €</div><div class="kpi-sub">+16,6%</div></div><div class="kpi-card"><div class="kpi-icon">💰</div><div class="kpi-label">Dividendes</div><div class="kpi-value">342,00 €</div><div class="kpi-sub neutral">Cette année</div></div><div class="kpi-card"><div class="kpi-icon">📅</div><div class="kpi-label">Prochaine distribution</div><div class="kpi-value">~150 €</div><div class="kpi-sub neutral">T2 2025</div></div></div></section><h3 class="section-title">Mes participations</h3><div class="participations-grid"><div class="part-card"><div class="part-img-wrap"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=300&fit=crop" alt="MedCare AI"><span class="badge badge-halal">☪ Halal</span></div><div class="part-body"><div class="part-header"><span class="part-name">MedCare AI</span><span class="part-value">2 450 €</span></div><div class="part-meta"><span class="part-sector">HealthTech</span><span class="part-perf positive">+22,5%</span></div><div class="part-separator"></div><div class="part-stats"><div class="part-stat"><div class="part-stat-label">Actions</div><div class="part-stat-value">160</div></div><div class="part-stat"><div class="part-stat-label">PRU</div><div class="part-stat-value">12,50 €</div></div><div class="part-stat"><div class="part-stat-label">Actuel</div><div class="part-stat-value">15,31 €</div></div></div><div class="part-separator"></div><div class="part-actions"><button class="btn-vendre">Vendre</button><button class="btn-actualites">Actualités</button></div></div></div><div class="part-card"><div class="part-img-wrap"><img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=300&fit=crop" alt="GreenFarm Bio"><span class="badge badge-halal">☪ Halal</span></div><div class="part-body"><div class="part-header"><span class="part-name">GreenFarm Bio</span><span class="part-value">1 875 €</span></div><div class="part-meta"><span class="part-sector">AgriTech</span><span class="part-perf positive">+15,4%</span></div><div class="part-separator"></div><div class="part-stats"><div class="part-stat"><div class="part-stat-label">Actions</div><div class="part-stat-value">75</div></div><div class="part-stat"><div class="part-stat-label">PRU</div><div class="part-stat-value">21,70 €</div></div><div class="part-stat"><div class="part-stat-label">Actuel</div><div class="part-stat-value">25,00 €</div></div></div><div class="part-separator"></div><div class="part-actions"><button class="btn-vendre">Vendre</button><button class="btn-actualites">Actualités</button></div></div></div><div class="part-card"><div class="part-img-wrap"><img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&h=300&fit=crop" alt="SolarHome"><span class="badge badge-halal">☪ Halal</span></div><div class="part-body"><div class="part-header"><span class="part-name">SolarHome</span><span class="part-value">2 340 €</span></div><div class="part-meta"><span class="part-sector">CleanTech</span><span class="part-perf positive">+17,0%</span></div><div class="part-separator"></div><div class="part-stats"><div class="part-stat"><div class="part-stat-label">Actions</div><div class="part-stat-value">90</div></div><div class="part-stat"><div class="part-stat-label">PRU</div><div class="part-stat-value">22,22 €</div></div><div class="part-stat"><div class="part-stat-label">Actuel</div><div class="part-stat-value">26,00 €</div></div></div><div class="part-separator"></div><div class="part-actions"><button class="btn-vendre">Vendre</button><button class="btn-actualites">Actualités</button></div></div></div><div class="part-card"><div class="part-img-wrap"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=300&fit=crop" alt="LearnUp Academy"><span class="badge badge-halal">☪ Halal</span></div><div class="part-body"><div class="part-header"><span class="part-name">LearnUp Academy</span><span class="part-value">950 €</span></div><div class="part-meta"><span class="part-sector">EdTech</span><span class="part-perf negative">-5,0%</span></div><div class="part-separator"></div><div class="part-stats"><div class="part-stat"><div class="part-stat-label">Actions</div><div class="part-stat-value">50</div></div><div class="part-stat"><div class="part-stat-label">PRU</div><div class="part-stat-value">20,00 €</div></div><div class="part-stat"><div class="part-stat-label">Actuel</div><div class="part-stat-value">19,00 €</div></div></div><div class="part-separator"></div><div class="part-actions"><button class="btn-vendre">Vendre</button><button class="btn-actualites">Actualités</button></div></div></div></div></div>
+
+<div class="content app-screen" data-tab="3"><section class="kpi-section"><div class="kpi-header"><h2>Statistiques principales</h2></div><div class="kpi-grid"><div class="kpi-card"><div class="kpi-icon">✅</div><div class="kpi-label">Ordres actifs</div><div class="kpi-value">156</div></div><div class="kpi-card"><div class="kpi-icon">💸</div><div class="kpi-label">Volume 7 jours</div><div class="kpi-value accent">89 450 €</div></div><div class="kpi-card"><div class="kpi-icon">🏢</div><div class="kpi-label">Entreprises</div><div class="kpi-value">24</div></div><div class="kpi-card"><div class="kpi-icon">⚡</div><div class="kpi-label">Exécution</div><div class="kpi-value">&lt; 48h</div></div></div></section><h3 class="section-title">Carnet d'ordres</h3><div class="carnet-grid"><div class="carnet-card"><div class="carnet-header achat">Ordres d'achat</div><table class="carnet-table"><thead><tr><th>Entreprise</th><th>Prix</th><th>Qte</th><th>Action</th></tr></thead><tbody><tr><td><div class="entreprise-cell"><div class="entreprise-icon medical">🏥</div><span class="entreprise-name">MedCare AI</span></div></td><td class="prix-cell">14,80 €</td><td>25</td><td><button class="btn-action sell">Vendre</button></td></tr><tr><td><div class="entreprise-cell"><div class="entreprise-icon plant">🌱</div><span class="entreprise-name">GreenFarm Bio</span></div></td><td class="prix-cell">24,50 €</td><td>40</td><td><button class="btn-action sell">Vendre</button></td></tr><tr><td><div class="entreprise-cell"><div class="entreprise-icon plant">☀️</div><span class="entreprise-name">SolarHome</span></div></td><td class="prix-cell">25,00 €</td><td>15</td><td><button class="btn-action sell">Vendre</button></td></tr></tbody></table></div><div class="carnet-card"><div class="carnet-header vente">Ordres de vente</div><table class="carnet-table"><thead><tr><th>Entreprise</th><th>Prix</th><th>Qte</th><th>Action</th></tr></thead><tbody><tr><td><div class="entreprise-cell"><div class="entreprise-icon medical">🏥</div><span class="entreprise-name">MedCare AI</span></div></td><td class="prix-cell">15,20 €</td><td>30</td><td><button class="btn-action buy">Acheter</button></td></tr><tr><td><div class="entreprise-cell"><div class="entreprise-icon plant">🌱</div><span class="entreprise-name">GreenFarm Bio</span></div></td><td class="prix-cell">25,00 €</td><td>20</td><td><button class="btn-action buy">Acheter</button></td></tr><tr><td><div class="entreprise-cell"><div class="entreprise-icon plant">☀️</div><span class="entreprise-name">SolarHome</span></div></td><td class="prix-cell">26,50 €</td><td>10</td><td><button class="btn-action buy">Acheter</button></td></tr></tbody></table></div></div><h3 class="section-title">Mes ordres</h3><div class="history-card"><div class="history-header"><h3>Historique et ordres en cours</h3></div><table class="history-table"><thead><tr><th>Entreprise</th><th>Type</th><th>Prix</th><th>Quantité</th><th>Statut</th><th>Date</th><th>Action</th></tr></thead><tbody><tr><td><span class="entreprise-name">MedCare AI</span><span class="order-ref">#ORD-2024-0156</span></td><td><span class="type-badge vente">Vente</span></td><td class="prix-cell">15,50 €</td><td>20 actions</td><td><span class="status-badge en-cours">En cours</span></td><td style="color:var(--text-tertiary)">—</td><td><button class="btn-action cancel">Annuler</button></td></tr><tr><td><span class="entreprise-name">GreenFarm Bio</span><span class="order-ref">#ORD-2024-0142</span></td><td><span class="type-badge achat">Achat</span></td><td class="prix-cell">24,00 €</td><td>10 actions</td><td><span class="status-badge en-attente">En attente</span></td><td style="color:var(--text-tertiary)">—</td><td><button class="btn-action cancel">Annuler</button></td></tr><tr><td><span class="entreprise-name">SolarHome</span><span class="order-ref">#ORD-2024-0098</span></td><td><span class="type-badge achat">Achat</span></td><td class="prix-cell">22,00 €</td><td>25 actions</td><td><span class="status-badge execute">Exécuté</span></td><td style="color:var(--text-secondary)">15 jan.</td><td></td></tr></tbody></table></div></div>
+
+<footer class="trust-footer"><div class="trust-item">🔒 Données sécurisées</div><div class="trust-item">📜 Agréé AMF</div><div class="trust-item">💰 0% frais d'entrée</div><div class="trust-item">⭐ 4.8/5 Trustpilot</div></footer>
+</div></div>
+
+<script>
+function showLogin(){document.getElementById('screen-login').style.display='flex';document.getElementById('screen-onboarding').style.display='none';document.getElementById('screen-app').style.display='none';}
+function showOnboarding(){document.getElementById('screen-login').style.display='none';document.getElementById('screen-onboarding').style.display='block';document.getElementById('screen-app').style.display='none';currentOnbStep=1;updateOnbStep();}
+function showApp(){document.getElementById('screen-login').style.display='none';document.getElementById('screen-onboarding').style.display='none';document.getElementById('screen-app').style.display='flex';}
+let currentOnbStep=1;const totalOnbSteps=6;
+function updateOnbStep(){document.querySelectorAll('.onb-step').forEach(s=>s.classList.remove('active'));const a=document.querySelector(`.onb-step[data-step="${currentOnbStep}"]`);if(a)a.classList.add('active');document.querySelectorAll('.onb-step-dot').forEach(d=>{const s=parseInt(d.dataset.step);d.classList.remove('active','completed');if(s<currentOnbStep)d.classList.add('completed');if(s===currentOnbStep)d.classList.add('active');});document.querySelectorAll('.onb-step-label').forEach(l=>{const s=parseInt(l.dataset.step);l.classList.remove('active','completed');if(s<currentOnbStep)l.classList.add('completed');if(s===currentOnbStep)l.classList.add('active');});}
+function onbNext(){if(currentOnbStep<totalOnbSteps){currentOnbStep++;updateOnbStep();window.scrollTo({top:0,behavior:'smooth'});}}
+function onbPrev(){if(currentOnbStep>1){currentOnbStep--;updateOnbStep();window.scrollTo({top:0,behavior:'smooth'});}}
+function switchAppTab(i){document.querySelectorAll('.nav-tab').forEach((t,j)=>t.classList.toggle('active',j===i));document.querySelectorAll('.app-screen').forEach(s=>{s.classList.remove('active');if(parseInt(s.dataset.tab)===i)s.classList.add('active');});}
+const PRICE=12.50,FEE=0.02;
+function updateCalc(){const a=parseFloat(document.getElementById('invest-amount').value)||0;document.getElementById('calc-actions').textContent=Math.floor(a/PRICE);document.getElementById('calc-fees').textContent=(a*FEE).toFixed(2).replace('.',',')+' €';document.getElementById('calc-total').textContent=(a+a*FEE).toFixed(2).replace('.',',')+' €';document.querySelectorAll('.quick-btn').forEach(b=>b.classList.toggle('active',parseInt(b.textContent)===a));}
+function setAmount(v){document.getElementById('invest-amount').value=v;updateCalc();}
+function togglePassword(){const i=document.getElementById('login-password');i.type=i.type==='password'?'text':'password';}
+document.querySelectorAll('.filter-pill').forEach(p=>p.addEventListener('click',()=>{p.parentElement.querySelectorAll('.filter-pill').forEach(x=>x.classList.remove('active'));p.classList.add('active');}));
+document.querySelectorAll('.fiche-tab').forEach(t=>t.addEventListener('click',()=>{t.parentElement.querySelectorAll('.fiche-tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');}));
+</script>
+</body>
+</html>]]>
