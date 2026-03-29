@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  --color-login-navy: #1B2A4A;
+  --color-login-cyan: #00B4D8;
+  --color-login-cyan-dark: #009bb8;
+  --color-login-bg: #f9f9f9;
+  --color-sidebar: #061d39;
+  --color-accent: #2dd4bf;
+  --color-accent-hover: #1cb18b;
+  --color-accent-secondary: #47d3b0;
+  --color-page-bg: #f8fafc;
+  --color-card: #ffffff;
+  --color-card-border: #e2e8f0;
+  --color-filter-bg: #f1f5f9;
+  --color-input-bg: #f2f2f2;
+  --color-heading: #0f172a;
+  --color-primary: #1e293b;
+  --color-secondary: #64748b;
+  --color-tertiary: #94a3b8;
+  --color-success: #0d9488;
+  --color-danger: #cc0000;
+  --color-danger-alt: #ef4444;
+  --color-warning-bg: #fff7da;
+  --color-badge-nouveau: #ffbc48;
+  --color-badge-fin: #dc6a3a;
+  --font-app: 'Inter', sans-serif;
+  --font-heading: 'Raleway', sans-serif;
+  --font-body: 'Libre Franklin', sans-serif;
+}
+
+body {
+  font-family: var(--font-app);
+  background: var(--color-page-bg);
+  color: var(--color-primary);
+  margin: 0;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-card-border); border-radius: 3px; }
